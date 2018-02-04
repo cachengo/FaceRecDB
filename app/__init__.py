@@ -1,5 +1,6 @@
 import logging
 import os
+from annoy import AnnoyIndex
 from flask import Flask, request, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -43,3 +44,6 @@ def create_app(config_class=Config):
 
 
 from app import models
+
+feats = AnnoyIndex(128)
+feats.load('index.ann')
