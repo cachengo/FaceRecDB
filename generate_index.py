@@ -10,8 +10,14 @@ with sqlite3.connect('/db/facerec.db') as conn:
     cur.execute("SELECT * FROM photo_features")
  
     rows = cur.fetchall()
-    t = AnnoyIndex(128)
+    tf = AnnoyIndex(128)
+    caffe = AnnoyIndex(10575)
     for row in rows:
-        t.add_item(row[0], pickle.loads(str(row[3])))
-    t.build(10)
-    t.save('index.ann')
+        if row[2] == 'tensorflow':
+            tf.add_item(row[0], pickle.loads(str(row[3])))
+        elif row[2] == 'caffe':
+            caffe.add_item(row[0], pickle.loads(str(row[3])))
+    tf.build(10)
+    caffe.build(10)
+    tf.save('/db/tf.ann')
+    caffe.save('/db/caffe.ann')

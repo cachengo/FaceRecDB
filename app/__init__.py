@@ -45,5 +45,8 @@ def create_app(config_class=Config):
 
 from app import models
 
-feats = AnnoyIndex(128)
-feats.load('index.ann')
+tf_feats = AnnoyIndex(128)
+tf_feats.load('/db/tf.ann')
+
+caffe_feats = AnnoyIndex(10575)
+caffe_feats.load('/db/caffe.ann')
