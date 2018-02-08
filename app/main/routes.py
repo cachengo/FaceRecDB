@@ -30,11 +30,11 @@ def find_vector():
     data = request.get_json()
     vector = pickle.loads(data['vector'])
     model = data.get('model', '')
-    if model == 'tensorflow'
+    if model == 'tensorflow':
         match = tf_feats.get_nns_by_vector(vector, 1, search_k=-1, include_distances=True)
     elif model == 'caffe':
         match = caffe_feats.get_nns_by_vector(vector, 1, search_k=-1, include_distances=True)
-    else
+    else:
         return 'Unsupported model'
 
     hit = PhotoFeatures.query.get(match[0][0])
