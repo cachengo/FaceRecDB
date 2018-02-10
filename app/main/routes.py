@@ -18,7 +18,8 @@ def add_vector():
     data = request.get_json()
     features = PhotoFeatures(person_name=data['name'], 
                              vector=pickle.loads(data['vector']), 
-                             model=data['model']
+                             model=data['model'],
+                             filename=data['filename']
                             )
     db.session.add(features)
     db.session.commit()
@@ -38,5 +39,12 @@ def find_vector():
         return 'Unsupported model'
 
     hit = PhotoFeatures.query.get(match[0][0])
-    result = {'name': hit.person_name, 'distance': match[1][0]}
+    result = {'name': hit.person_name, 'distance': match[1][0], 'filename': hit.filename}
     return jsonify(result)
+
+
+@bp.route('/has_name', methods=['POST'])
+def has_name():
+    data = request.get_json()
+    name = data['name']
+    return jsonify({'has_name': PhotoFeatures.query.filter_by(person_name=name).first() is not None})
