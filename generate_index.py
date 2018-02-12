@@ -13,10 +13,10 @@ with sqlite3.connect('/db/facerec.db') as conn:
     tf = AnnoyIndex(128)
     caffe = AnnoyIndex(10575)
     for row in rows:
-        if row[2] == 'tensorflow':
-            tf.add_item(row[0], pickle.loads(str(row[3])))
-        elif row[2] == 'caffe':
-            caffe.add_item(row[0], pickle.loads(str(row[3])))
+        if row[3] == 'tensorflow':
+            tf.add_item(row[0], pickle.loads(str(row[2])))
+        elif row[3] == 'caffe':
+            caffe.add_item(row[0], pickle.loads(str(row[2])))
     tf.build(10)
     caffe.build(10)
     tf.save('/db/tf.ann')
