@@ -48,5 +48,5 @@ from app import models
 tf_feats = AnnoyIndex(128)
 tf_feats.load('/db/tf.ann')
 
-caffe_feats = AnnoyIndex(10575)
+caffe_feats = AnnoyIndex(256)
 caffe_feats.load('/db/caffe.ann')
