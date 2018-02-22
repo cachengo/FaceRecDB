@@ -4,6 +4,14 @@ To reproduce the MWC demo, clone this repository to /root/FaceRecDB. It contains
 
 While the demo runs this service as root, we have run it as other users too. To manage the start/stop of this service, you should utilize the startservices.sh script in the FaceRecCaffe repository. It will take care of starting and stopping all services.
 
+This service does operate in a virtual environment. You will need to perform the following steps in order to get everything working properly:
+
+1. pip install virtualenv
+2. pip install virtualenvwrapper
+3. mkvirtualenv facerecdb
+4. workon facerecdb
+5. pip install -r requirements.txt
+
 You should note that the database service has to be restarted in order to properly index newly added images to the database. For this function, we are using the inotify capabilities in Ubuntu 16.04. If you wish to automate the blipping of this service, then perform the following:
 
 1. apt-get install inotify-tools
